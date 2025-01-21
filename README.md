@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!--
  Copyright 2025 almighty
  
@@ -13,4 +14,8 @@
  See the License for the specific language governing permissions and
  limitations under the License.
 -->
+=======
+# 你好，这是一个天气的小网站 希望你开心
+Hello, this is a small weather website. Hope you have a good day!
+>>>>>>> 302dfb664d28e7d20297374a42d8c3553e0b4f6f
 
