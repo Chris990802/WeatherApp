@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router'
-import BaseModal from './BaseModal.vue'
+import BaseModal from './BaseModal.vue';
 import { ref } from 'vue'
 
 const modalActive = ref(false)
@@ -17,7 +17,7 @@ const toggleModal = () => {
         <RouterLink :to="{ name: 'home' }">
           <div class="gap-3 flex items-center">
             <i class="fa-solid fa-sun text-2xl text-white"></i>
-            <p class="text-2xl">The local Wheather</p>
+            <p class="text-2xl">我的天气预报</p>
           </div>
         </RouterLink>
 

@@ -17,6 +17,9 @@ coverage
 /cypress/videos/
 /cypress/screenshots/
 
+# 忽略包含 private_key 的文件
+.env
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

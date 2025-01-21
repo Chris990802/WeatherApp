@@ -13,7 +13,10 @@
         <Transition name="modal-inner">
           <div v-if="visible" class="bg-white p-4 self-start mt-32 max-w-screen-md">
             <slot />
-            <button @click="$emit('close')" class="text-xl text-white bg-black mt-8 py-2 px-8 rounded-md">
+            <button
+              @click="$emit('close')"
+              class="text-xl text-white bg-black mt-8 py-2 px-8 rounded-md"
+            >
               Close
             </button>
           </div>
@@ -23,10 +26,10 @@
   </Teleport>
 </template>
 
-<script setup>
-import { defineProps } from 'vue'
+<script setup lang="ts">
+import { defineProps, defineEmits } from 'vue'
 defineEmits(['close'])
-const props = defineProps({
+defineProps({
   visible: {
     type: Boolean,
     default: false,
