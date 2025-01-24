@@ -44,15 +44,11 @@ export const getAction = <T>(
     axios
       .get(url, { params })
       .then((response) => {
-        // 默认值
-        console.log('111', response)
         if (clearFn !== undefined) {
           res = clearFn(response.data) as FcResponse<T>
         } else {
           res.data = response.data as T
         }
-
-        console.log('res is a what', res)
         resolve(res)
       })
       .catch((err) => {

@@ -7,10 +7,10 @@ export const PUBLIC_KEY = 'PCHZUTNHRqYfhmkLf'
 export const QWEATHER_PLACES = 'https://geoapi.qweather.com/v2/city/lookup'
 //获取实时天气
 export const QWEATHER_CURRET = 'https://devapi.qweather.com/v7/weather/now'
-//获取未来10日天气
-export const QWEATHER_IN_10_DAYS = 'https://devapi.qweather.com/v7/weather/10d'
+//获取未来7日天气
+export const QWEATHER_IN_10_DAYS = 'https://devapi.qweather.com/v7/weather/7d'
 //获取未来24小时天气预报
-export const QWEATHER_IN_24_HRS = 'https://api.qweather.com/v7/weather/24h'
+export const QWEATHER_IN_24_HRS = 'https://devapi.qweather.com/v7/weather/24h'
 
 export const QWEATHER_PRIVATE_KEY = 'ffd57979924341ed9ea6b38d16a0ace2'
 // export const QWEATHER_JWT_PRIVATE_KEY =

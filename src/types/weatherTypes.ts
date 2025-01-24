@@ -94,3 +94,74 @@ export interface currentWeather {
   cloud: string
   dew: string
 }
+
+//逐小时天气接口
+export interface hourlyWeatherApiResponse {
+  code: string
+  updateTime: string
+  fixLink: string
+  hourly: hourlyWeather[]
+  refer: {
+    sources: string[]
+    license: string[]
+  }
+}
+
+export interface hourlyWeather {
+  fxTime: string
+  temp: string
+  icon: string
+  text: string
+  wind360: string
+  windDir: string
+  windScale: string
+  windSpeed: string
+  humidity: string
+  pop: string
+  precip: string
+  pressure: string
+  cloud: string
+  dew: string
+}
+
+//未来7日天气接口
+export interface dailyWeatherApiResponse {
+  code: string
+  updateTime: string
+  fixLink: string
+  daily: dailyWeather[]
+  refer: {
+    sources: string[]
+    license: string[]
+  }
+}
+
+export interface dailyWeather {
+  fxDate: string
+  sunrise: string
+  sunset: string
+  moonrise: string
+  moonset: string
+  moonPhase: string
+  moonPhaseIcon: string
+  tempMax: string
+  tempMin: string
+  iconDay: string
+  textDay: string
+  iconNight: string
+  textNight: string
+  wind360Day: string
+  windDirDay: string
+  windScaleDay: string
+  windSpeedDay: string
+  wind360Night: string
+  windDirNight: string
+  windScaleNight: string
+  windSpeedNight: string
+  humidity: string
+  precip: string
+  pressure: string
+  vis: string
+  cloud: string
+  uvIndex: string
+}

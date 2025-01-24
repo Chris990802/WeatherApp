@@ -23,7 +23,7 @@
             v-for="item in geoSearchResults"
             :key="item.id"
             class="py-2 px-2 cursor-pointer hover:text-white hover:bg-weather-primary rounded-md transition-all duration-300"
-            @click="handleCitySearch(item.id)"
+            @click="handleCitySearch(item)"
           >
             {{ item.name }}, {{ item.adm2 }}, {{ item.adm1 }}, {{ item.country }}
           </li>
@@ -41,11 +41,11 @@ import { useRouter } from 'vue-router'
 
 const router = useRouter()
 
-const pushToCity = (id: string) => {
+const pushToCity = (city : string) => {
   router.push({
     name: 'cityView',
     params: {
-      id: id,
+      city: city 
     },
   })
 }
@@ -89,9 +89,10 @@ const searchGeo = () => {
   }, 300)
 }
 
-const handleCitySearch = (id: string) => {
+const handleCitySearch = (item : geoLocation) => {
+  console.log('item', item)
   geoSearchResults.value = null
-  pushToCity(id)
+  pushToCity(JSON.stringify(item))
 }
 
 onMounted(async () => {})
