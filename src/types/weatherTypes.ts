@@ -75,6 +75,7 @@ export interface currentWeatherApiResponse {
     sources: string[]
     license: string[]
   }
+  preview?: boolean
 }
 
 export interface currentWeather {

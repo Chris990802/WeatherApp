@@ -92,6 +92,8 @@ const searchGeo = () => {
 const handleCitySearch = (item : geoLocation) => {
   console.log('item', item)
   geoSearchResults.value = null
+
+  //TODO 这里改造为id
   pushToCity(JSON.stringify(item))
 }
 

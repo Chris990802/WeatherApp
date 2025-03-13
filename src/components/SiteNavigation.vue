@@ -1,13 +1,37 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router'
-import BaseModal from './BaseModal.vue';
-import { ref } from 'vue'
+import BaseModal from './BaseModal.vue'
+import { onMounted, ref } from 'vue'
+import { useRoute } from 'vue-router'
+import { useCityListStore } from '../stores/citylist'
+import { storeToRefs } from 'pinia'
+import type { geoLocation } from '../types/weatherTypes'
+
+const route = useRoute()
+const cityListStore = useCityListStore()
 
 const modalActive = ref(false)
 const toggleModal = () => {
   modalActive.value = !modalActive.value
 }
 
+const { cityList, isExist } = storeToRefs(cityListStore)
+const { addCity } = cityListStore
+
+const handleClickPlus = () => {
+  const cityStr = route.params.city ? decodeURIComponent(route.params.city as string) : undefined
+  const currentCityId = cityStr ? (JSON.parse(cityStr) as geoLocation) : { id: '' }
+
+  //有就return
+  if (isExist.value(currentCityId.id)) {
+    console.log('已经在我的收藏列表中啦！')
+    alert('已经在我的收藏列表中啦！')
+    return
+  }
+
+  //添加
+  addCity(currentCityId.id)
+}
 </script>
 
 <template>
@@ -27,7 +51,9 @@ const toggleModal = () => {
             class="fa-solid fa-circle-info text-xl hover:text-weather-secondary duration-150 cursor-pointer text-white"
           ></i>
           <i
+            v-if="route.params.city"
             class="fa-solid fa-plus text-xl hover:text-weather-secondary duration-150 cursor-pointer text-white"
+            @click="handleClickPlus()"
           ></i>
         </div>
 

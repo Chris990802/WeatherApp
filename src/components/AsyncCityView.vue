@@ -1,8 +1,15 @@
 <template>
   <div class="flex flex-col flex-1 items-center">
     <!--banner-->
-    <div v-if="res.now" class="bg-weather-secondary text-white w-full p-4 text-center">
+    <div
+      v-if="!cityList.some((item) => item === city.id)"
+      class="bg-weather-secondary text-white w-full p-4 text-center"
+    >
       <p>您正在浏览这个城市，点击'+'号加入到收藏列表</p>
+    </div>
+
+    <div v-else class="bg-weather-secondary text-white w-full p-4 text-center">
+      <p>已添加到我的收藏！</p>
     </div>
     <!--weather Overview-->
     <div class="flex flex-col items-center text-white py-12">
@@ -60,6 +67,7 @@
       </div>
     </div>
 
+    <hr class="border-white border-opacity-10 border w-full" />
     <!--daily weather-->
     <div class="max-w-screen-md w-full py-12">
       <div class="mx-8 text-white">
@@ -75,9 +83,11 @@
               <!-- 星期几 -->
               <p class="text-lg font-medium">
                 {{
-                  index === 0 ? '今天' : new Date(item.fxDate).toLocaleDateString('zh-cn', {
-                    weekday: 'short', // 如 “Mon”, “Tue”...
-                  })
+                  index === 0
+                    ? '今天'
+                    : new Date(item.fxDate).toLocaleDateString('zh-cn', {
+                        weekday: 'short', // 如 “Mon”, “Tue”...
+                      })
                 }}
               </p>
               <!-- 天气图标 -->
@@ -112,17 +122,33 @@
 
 <script setup lang="ts">
 import { useRoute } from 'vue-router'
-import { getCurrentWeather, getDailyWeather, getHourlyWeather } from '@/api/path/weatherApi'
-import type { geoLocation } from '@/types/weatherTypes'
+import { getCurrentWeather, getDailyWeather, getHourlyWeather } from '../api/path/weatherApi'
+import type { geoLocation } from '../types/weatherTypes'
 import chroma from 'chroma-js'
+import { useCityListStore } from '../stores/citylist'
+import { storeToRefs } from 'pinia'
+
+interface SavedCity {
+  id: string
+  cityId: string | null
+}
 
 const route = useRoute()
+
+const cityListStore = useCityListStore()
+const { cityList, isExist } = storeToRefs(cityListStore)
+
 //待优化：
 //用URL传参太蠢了，考虑用pinia全局变量优化
 const cityStr = decodeURIComponent(route.params.city as string)
 const city = JSON.parse(cityStr) as geoLocation
 
 const utcOffset = city.utcOffset as string
+
+//从localStorage获取城市列表
+//这个后续也要用pinia全局变量优化
+//加号放在layout传参太麻烦了，考虑都放到这个页面里面吧
+const savedCity: SavedCity[] = JSON.parse(localStorage.getItem('savedCities') as string) || []
 
 // 解析 UTC 偏移量（例如 "-08:00"）为毫秒数
 function parseOffset(offset: string): number {
@@ -561,7 +587,6 @@ hourlyData.forEach((item) => {
   const [date, offset] = item.fxTime.split('T')
 
   const res = offset.split(/[+-]/)[0]
-  console.log(res)
   item['fxTime'] = res
 })
 
@@ -575,10 +600,10 @@ const computeBarStyle = (min: number, max: number) => {
     .scale([
       '#1D71F2', // 深蓝色
       '#1C9CF6', // 蓝色
-      '#7AC26F', //green 
-      '#FFB400',//黄
+      '#7AC26F', //green
+      '#FFB400', //黄
       '#FE7701',
-      '#b30400'
+      '#b30400',
     ])
     .domain([0, 1])
 
@@ -600,28 +625,6 @@ const computeBarStyle = (min: number, max: number) => {
     borderRadius: '4px',
   }
 }
-
-// /**
-//  * 根据温度计算颜色
-//  * @param temp 当前温度
-//  * @returns HSL 颜色字符串
-//  */
-// const getTemperatureColor = (temp: number): string => {
-//   // 定义色相范围：240（蓝色）到 0（红色）
-//   const minHue = 240 // 蓝色
-//   const maxHue = 0 // 红色
-
-//   // 确保 temp 在 minTemp 和 maxTemp 之间
-//   const clampedTemp = Math.min(Math.max(temp, minTemp), maxTemp)
-//   const hueRange = maxTemp - minTemp
-//   const totalRange = maxTemp - minTemp || 1
-
-//   // 线性插值计算色相
-//   const hue = (hueRange / totalRange) * (clampedTemp - minTemp) + minHue
-
-//   // 返回 HSL 颜色字符串，保持饱和度和亮度固定
-//   return `hsl(${hue}, 80%, 60%)`
-// }
 
 //获取每天天气
 const dailyRes = await getDailyWeather(city.id as string)
