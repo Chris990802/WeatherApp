@@ -4,7 +4,11 @@ module.exports = {
     extend: {
       colors: {
         'weather-primary': '#00668A',
-        'weather-secondary': '#004E71',
+        'weather-secondary': '#3B3B54',
+      },
+      backgroundImage: {
+        'my-background': "url('@/assets/image/Background.png')", // 根据实际路径调整
+        'cloudy-bg': "url('@/assets/image/cloudy-pic.jpg')",
       },
     },
     fontFamily: {

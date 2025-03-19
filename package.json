@@ -16,6 +16,7 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "ant-design-vue": "^4.2.6",
     "antd": "^5.23.1",
     "axios": "^1.7.9",
     "chroma-js": "^3.1.2",
@@ -47,6 +48,7 @@
     "npm-run-all2": "^7.0.2",
     "postcss": "^8.5.1",
     "prettier": "^3.3.3",
+    "sass-embedded": "^1.85.1",
     "start-server-and-test": "^2.0.9",
     "tailwindcss": "^3.4.17",
     "typescript": "~5.6.3",

@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-cloudy-bg bg-cover bg-center bg-no-repeat;
+  }
+}

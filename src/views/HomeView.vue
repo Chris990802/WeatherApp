@@ -11,7 +11,7 @@
 
       <ul
         v-if="geoSearchQuery && (geoError || geoSearchResults)"
-        class="absolute bg-white text-weather-primary w-full py-2 px-1 shadow-md top-[66] rounded-md"
+        class="absolute bg-weather-secondary text-white w-full py-2 px-1 shadow-md top-[66] rounded-md"
       >
         <p v-if="geoError && (geoError.status === 400 || geoError.status === 404)">
           输入的地点可能来自外星哦~
@@ -20,9 +20,11 @@
 
         <template v-else>
           <li
-            v-for="item in geoSearchResults"
+            v-for="item in geoSearchResults && geoSearchResults.length >= 10
+              ? geoSearchResults?.slice(0, geoSearchResults.length - 1)
+              : geoSearchResults"
             :key="item.id"
-            class="py-2 px-2 cursor-pointer hover:text-white hover:bg-weather-primary rounded-md transition-all duration-300"
+            class="py-2 px-2 cursor-pointer hover:text-weather-secondary hover:bg-white rounded-md transition-all duration-300"
             @click="handleCitySearch(item)"
           >
             {{ item.name }}, {{ item.adm2 }}, {{ item.adm1 }}, {{ item.country }}
@@ -41,11 +43,11 @@ import { useRouter } from 'vue-router'
 
 const router = useRouter()
 
-const pushToCity = (city : string) => {
+const pushToCity = (city: string) => {
   router.push({
     name: 'cityView',
     params: {
-      city: city 
+      city: city,
     },
   })
 }
@@ -89,7 +91,7 @@ const searchGeo = () => {
   }, 300)
 }
 
-const handleCitySearch = (item : geoLocation) => {
+const handleCitySearch = (item: geoLocation) => {
   console.log('item', item)
   geoSearchResults.value = null
 

@@ -4,7 +4,7 @@
     <div
       v-if="!cityList.some((item) => item === city.id)"
       class="bg-weather-secondary text-white w-full p-4 text-center"
-    >
+    > 
       <p>您正在浏览这个城市，点击'+'号加入到收藏列表</p>
     </div>
 

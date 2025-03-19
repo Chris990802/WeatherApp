@@ -36,12 +36,11 @@ const handleClickPlus = () => {
 
 <template>
   <div>
-    <header class="sticky top-0 shadow-lg bg-weather-primary">
+    <header class="sticky top-0">
       <nav class="container flex flex-col sm:flex-row items-center gap-4 text-white py-6">
         <RouterLink :to="{ name: 'home' }">
           <div class="gap-3 flex items-center">
-            <i class="fa-solid fa-sun text-2xl text-white"></i>
-            <p class="text-2xl">我的天气预报</p>
+            <p class="text-2xl">我的天气</p>
           </div>
         </RouterLink>
 
@@ -54,7 +53,7 @@ const handleClickPlus = () => {
             v-if="route.params.city"
             class="fa-solid fa-plus text-xl hover:text-weather-secondary duration-150 cursor-pointer text-white"
             @click="handleClickPlus()"
-          ></i>
+          ></i> 
         </div>
 
         <BaseModal :visible="modalActive" @close="toggleModal">
